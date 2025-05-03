@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_weekday_shifts",
+  "info": {
+    "singularName": "user-weekday-shift",
+    "pluralName": "user-weekday-shifts",
+    "displayName": "UserWeekdayShift"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "user_id": {
+      "type": "integer"
+    },
+    "weekday": {
+      "type": "integer"
+    },
+    "shift_type_id": {
+      "type": "integer"
+    }
+  }
+}

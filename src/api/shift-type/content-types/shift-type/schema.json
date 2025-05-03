@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shift_types",
+  "info": {
+    "singularName": "shift-type",
+    "pluralName": "shift-types",
+    "displayName": "ShiftType"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "user_id": {
+      "type": "integer"
+    },
+    "shift_name": {
+      "type": "string"
+    },
+    "shift_start": {
+      "type": "time"
+    },
+    "shift_end": {
+      "type": "time"
+    },
+    "grace_period_minutes": {
+      "type": "integer"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

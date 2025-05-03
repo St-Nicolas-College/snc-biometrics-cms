@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "attendance_logs",
+  "info": {
+    "singularName": "attendance-log",
+    "pluralName": "attendance-logs",
+    "displayName": "AttendanceLog"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "device_uid": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "timestamp": {
+      "type": "datetime"
+    }
+  }
+}
