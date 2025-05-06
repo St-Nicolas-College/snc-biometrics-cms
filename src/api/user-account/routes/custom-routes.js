@@ -7,6 +7,11 @@ module.exports = {
             path: '/user-account/list',
             handler: 'custom-controller.getUserList'
         },
+        {
+            method: "GET",
+            path: '/user-account/:userid',
+            handler: 'custom-controller.getUserDetails'
+        },
         
     ]
 }
