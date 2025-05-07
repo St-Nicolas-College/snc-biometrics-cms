@@ -4,7 +4,8 @@
   "info": {
     "singularName": "user-account",
     "pluralName": "user-accounts",
-    "displayName": "UserAccount"
+    "displayName": "UserAccount",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -24,6 +25,18 @@
     },
     "role": {
       "type": "integer"
+    },
+    "department": {
+      "type": "string"
+    },
+    "department_code": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::department.department",
+      "mappedBy": "user_account"
+    },
+    "department_id": {
+      "type": "string"
     }
   }
 }

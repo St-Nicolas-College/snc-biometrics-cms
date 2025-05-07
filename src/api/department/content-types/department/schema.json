@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "departments",
+  "info": {
+    "singularName": "department",
+    "pluralName": "departments",
+    "displayName": "department",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "dept_code": {
+      "type": "string"
+    },
+    "dept_name": {
+      "type": "string"
+    },
+    "user_account": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-account.user-account",
+      "inversedBy": "department_code"
+    }
+  }
+}

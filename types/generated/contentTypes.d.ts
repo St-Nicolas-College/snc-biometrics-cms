@@ -400,6 +400,40 @@ export interface ApiAttendanceLogAttendanceLog
   };
 }
 
+export interface ApiDepartmentDepartment extends Struct.CollectionTypeSchema {
+  collectionName: 'departments';
+  info: {
+    description: '';
+    displayName: 'department';
+    pluralName: 'departments';
+    singularName: 'department';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dept_code: Schema.Attribute.String;
+    dept_name: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::department.department'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user_account: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::user-account.user-account'
+    >;
+  };
+}
+
 export interface ApiShiftTypeShiftType extends Struct.CollectionTypeSchema {
   collectionName: 'shift_types';
   info: {
@@ -436,6 +470,7 @@ export interface ApiShiftTypeShiftType extends Struct.CollectionTypeSchema {
 export interface ApiUserAccountUserAccount extends Struct.CollectionTypeSchema {
   collectionName: 'user_accounts';
   info: {
+    description: '';
     displayName: 'UserAccount';
     pluralName: 'user-accounts';
     singularName: 'user-account';
@@ -448,6 +483,12 @@ export interface ApiUserAccountUserAccount extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    department: Schema.Attribute.String;
+    department_code: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::department.department'
+    >;
+    department_id: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1006,6 +1047,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::attendance-log.attendance-log': ApiAttendanceLogAttendanceLog;
+      'api::department.department': ApiDepartmentDepartment;
       'api::shift-type.shift-type': ApiShiftTypeShiftType;
       'api::user-account.user-account': ApiUserAccountUserAccount;
       'api::user-weekday-shift.user-weekday-shift': ApiUserWeekdayShiftUserWeekdayShift;
