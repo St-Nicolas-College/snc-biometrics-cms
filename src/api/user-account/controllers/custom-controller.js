@@ -1,3 +1,5 @@
+const { filter } = require("../../../../config/middlewares");
+
 // @ts-ignore
 const { createCoreController } = require("@strapi/strapi").factories;
 
@@ -39,8 +41,8 @@ module.exports = createCoreController(
           .documents("api::user-account.user-account")
           .findMany({
             filters: {
-              user_id: { $eq: userid}
-            }
+              user_id: { $eq: userid },
+            },
           });
         console.log("Result");
 
@@ -54,6 +56,58 @@ module.exports = createCoreController(
         // }
       } catch (err) {
         console.log("[getUserDetails] Error: ", err.message);
+        return ctx.badRequest(err.message, err);
+      }
+    },
+
+    async updateUserDetails(ctx) {
+      try {
+        console.log("[updateUserDetails] Incoming Request");
+        const { userid } = ctx.params;
+        let { name, department, department_docid, department_id } =
+          ctx.request.body;
+
+        let myPayload = {
+          data: {},
+          message: "Successfully Updated!",
+          status: "success",
+        };
+
+        const result = await strapi.db
+          .query("api::user-account.user-account")
+          .update({
+            where: { user_id: userid },
+            data: {
+              name: name,
+              department: department,
+              department_id: department_docid,
+              department_code: {
+                connect: [department_id],
+              },
+            },
+          });
+
+        // const result = await strapi
+        //   .documents("api::user-account.user-account")
+        //   .update({
+        //     documentId: doc.id,
+        //     data: {
+        //       name: name,
+        //       department: department,
+        //       department_id: department_docid,
+        //       department_code: {
+        //         connect: [department_id],
+        //       },
+        //     },
+        //   });
+
+        if (result) {
+          myPayload.data = result;
+          ctx.status = 200;
+          return (ctx.body = myPayload);
+        }
+      } catch (err) {
+        console.log("[updateUserDetails] Error: ", err.message);
         return ctx.badRequest(err.message, err);
       }
     },

@@ -12,6 +12,11 @@ module.exports = {
             path: '/user-account/:userid',
             handler: 'custom-controller.getUserDetails'
         },
+        {
+            method:"PUT",
+            path: '/user-account/update/:userid',
+            handler: 'custom-controller.updateUserDetails'
+        }
         
     ]
 }

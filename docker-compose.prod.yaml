@@ -1,0 +1,44 @@
+services:
+  snc-biometrics-cms:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      # STRAPI Server Config
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      STRAPI_HOST: ${STRAPI_HOST}
+      STRAPI_PORT: ${STRAPI_PORT}
+      STRAPI_BASEURL: ${STRAPI_BASEURL}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      API_TOKEN_SALT: ${API_TOKEN_SALT} 
+      APP_KEYS: ${APP_KEYS}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_HOST: postgres
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - 1338:1338
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${STRAPI_PORT}/"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+  
+  postgres:
+    container_name: postgres-bio
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "5432:5432"
+volumes:
+  postgres_data:
